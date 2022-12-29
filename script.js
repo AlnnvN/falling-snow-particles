@@ -1,19 +1,11 @@
-const canvas = document.querySelector('canvas')
+const canvas = setupCanvas()
 const ctx = canvas.getContext('2d')
 let dpi = window.devicePixelRatio;
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight  
 
-function fix_dpi() {
-    
-    let height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
-    
-    let width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
-    
-    canvas.setAttribute('height', height * dpi);
-    canvas.setAttribute('width', width * dpi);
-}
+
 
 class Snow{
     constructor(x, y, radius, color, acceleration){
@@ -66,7 +58,6 @@ var snowParticles = []
 start();
 
 function start(){
-    fix_dpi()
     update()
     createParticle(interval)
 }
@@ -128,8 +119,23 @@ function update(){
     })
 }
 
-
 function drawCanvas(color) {
     ctx.fillStyle = color;
     ctx.fillRect(0, 0, canvas.width, canvas.height);
+}
+
+function setupCanvas(){
+    const width = window.innerWidth;
+    const height = window.innerHeight;
+    const ratio = Math.ceil(window.devicePixelRatio);
+    const canvas = document.querySelector('canvas');
+
+    canvas.width = width*ratio;
+    canvas.height = height*ratio;
+
+    canvas.style.width = width+'px';
+    canvas.style.height = height+'px';
+
+    canvas.getContext('2d').setTransform(ratio,0,0,ratio,0,0);
+    return canvas;
 }
