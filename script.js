@@ -1,9 +1,19 @@
 const canvas = document.querySelector('canvas')
 const ctx = canvas.getContext('2d')
+let dpi = window.devicePixelRatio;
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight  
 
+function fix_dpi() {
+    
+    let height = +getComputedStyle(canvas).getPropertyValue("height").slice(0, -2);
+    
+    let width = +getComputedStyle(canvas).getPropertyValue("width").slice(0, -2);
+    
+    canvas.setAttribute('height', height * dpi);
+    canvas.setAttribute('width', width * dpi);
+}
 
 class Snow{
     constructor(x, y, radius, color, acceleration){
@@ -56,6 +66,7 @@ var snowParticles = []
 start();
 
 function start(){
+    fix_dpi()
     update()
     createParticle(interval)
 }
