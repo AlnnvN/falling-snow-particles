@@ -3,7 +3,7 @@ const ctx = canvas.getContext('2d')
 
 canvas.width = window.innerWidth
 canvas.height = window.innerHeight  
-//7180B9
+
 
 class Snow{
     constructor(x, y, radius, color, acceleration){
@@ -27,6 +27,26 @@ class Snow{
         this.y+= this.acceleration.y;
         
     }
+    
+    static getColors(){
+        return [
+            '#DFF3E4',
+            '#CEE7E6',
+            '#A2D6F9',
+            '#A9B2AC',
+            '#E1EFF6',
+            '#B8DBD9',
+            '#D0FFCE',
+            '#ECCFC3'
+        ];
+    }
+
+    getPos(){
+        return {
+            x: this.x,
+            y: this.y
+        };
+    }
 }
 
 var interval = 1000
@@ -41,7 +61,6 @@ var snowParticles = []
 
 start();
 
-
 function start(){
     update()
     
@@ -49,17 +68,26 @@ function start(){
 }
 
 function createParticle(){
-    /*function randomInterval(){
-        return Math.floor(Math.random() * 100000)
-    }*/
+   
 
     setInterval(()=>{
-        posX = Math.floor(Math.random() * canvas.width)
-        snowParticles.push(new Snow(posX, 0, 2.5, '#DFF3E4', acceleration)) 
-    },interval/intensity)
-      
-    
 
+        snowParticles.push(new Snow(randomXPos(), 0, randomRadius(), randomColor(), acceleration)) 
+
+    },interval/intensity)
+
+    function randomXPos(){
+        return Math.floor(Math.random() * canvas.width)
+    }
+
+    function randomColor(){
+        index = Math.floor(Math.random()*(Snow.getColors().length))
+        return Snow.getColors()[index]
+    }
+
+    function randomRadius(){
+        return  Math.floor(Math.random() * 3)
+    }
 }
 
 function update(){
@@ -68,11 +96,14 @@ function update(){
     ctx.clearRect(0,0,canvas.width,canvas.height)
     drawCanvas('#171738');
 
-    
-
-    snowParticles.forEach(element => {
-        element.update();
-        element.draw();
+    snowParticles.forEach((element, index) => {
+        if(element.getPos().y > canvas.height){
+            snowParticles.shift(); //delete particle
+        }
+        else{
+            element.update();
+            element.draw();
+        }
     })
 }
 
