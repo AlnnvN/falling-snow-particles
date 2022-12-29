@@ -2,11 +2,6 @@ const canvas = setupCanvas()
 const ctx = canvas.getContext('2d')
 let dpi = window.devicePixelRatio;
 
-canvas.width = window.innerWidth
-canvas.height = window.innerHeight  
-
-
-
 class Snow{
     constructor(x, y, radius, color, acceleration){
         this.x = x;
@@ -65,15 +60,15 @@ function start(){
 function createParticle(){
    
     var acceleration = {
-        x: 0.2/2,
-        y: 0.3/2
+        x: 0.2,
+        y: 0.3
     }
 
     setInterval(()=>{
         snowParticles.push(
             new Snow(
                 randomXPos(),
-                0, 
+                -10, 
                 randomRadius(), 
                 randomColor(), 
                 randomAcceleration()
@@ -91,7 +86,7 @@ function createParticle(){
     }
 
     function randomRadius(){
-        return  Math.floor(Math.random() * 5)
+        return  Math.floor(Math.random() * 10)
     }
 
     function randomAcceleration(){
@@ -109,7 +104,7 @@ function update(){
     drawCanvas('#171738');
 
     snowParticles.forEach((element, index) => {
-        if(element.getPos().y > canvas.height || element.getPos().x > canvas.width){
+        if(element.getPos().y > canvas.height+10 || element.getPos().x > canvas.width+10){
             snowParticles.splice(index,1)
         }
         else{
