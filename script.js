@@ -60,8 +60,8 @@ function start(){
 function createParticle(){
    
     var acceleration = {
-        x: 0.2,
-        y: 0.3
+        x: 0.2*3.5,
+        y: 0.3*3.5
     }
 
     setInterval(()=>{
