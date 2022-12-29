@@ -45,7 +45,7 @@ class Snow{
 }
 
 var interval = 2000
-var intensity = 25
+var intensity = 50
 
 
 var snowParticles = []
@@ -77,7 +77,7 @@ function createParticle(){
     },interval/intensity)
 
     function randomXPos(){
-        return Math.floor(Math.random() * canvas.width)
+        return Math.floor(Math.random() * (canvas.width+canvas.width*0.20)) - Math.floor(canvas.width*0.20)
     }
 
     function randomColor(){
