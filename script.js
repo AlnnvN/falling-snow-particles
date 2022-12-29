@@ -22,10 +22,8 @@ class Snow{
     }
 
     update(){
-        
         this.x+= this.acceleration.x;
         this.y+= this.acceleration.y;
-        
     }
     
     static getColors(){
@@ -49,13 +47,9 @@ class Snow{
     }
 }
 
-var interval = 1000
-var intensity = 10
+var interval = 2000
+var intensity = 25
 
-var acceleration = {
-    x: 0,
-    y: 1
-}
 
 var snowParticles = []
 
@@ -63,17 +57,26 @@ start();
 
 function start(){
     update()
-    
     createParticle(interval)
 }
 
 function createParticle(){
    
+    var acceleration = {
+        x: 0.2/2,
+        y: 0.3/2
+    }
 
     setInterval(()=>{
-
-        snowParticles.push(new Snow(randomXPos(), 0, randomRadius(), randomColor(), acceleration)) 
-
+        snowParticles.push(
+            new Snow(
+                randomXPos(),
+                0, 
+                randomRadius(), 
+                randomColor(), 
+                randomAcceleration()
+            )
+        );
     },interval/intensity)
 
     function randomXPos(){
@@ -86,7 +89,14 @@ function createParticle(){
     }
 
     function randomRadius(){
-        return  Math.floor(Math.random() * 3)
+        return  Math.floor(Math.random() * 5)
+    }
+
+    function randomAcceleration(){
+        return {
+            x: Math.random() * (acceleration.x*2),
+            y: Math.random() * (acceleration.y*2) + acceleration.y
+        }
     }
 }
 
@@ -97,8 +107,8 @@ function update(){
     drawCanvas('#171738');
 
     snowParticles.forEach((element, index) => {
-        if(element.getPos().y > canvas.height){
-            snowParticles.shift(); //delete particle
+        if(element.getPos().y > canvas.height || element.getPos().x > canvas.width){
+            snowParticles.splice(index,1)
         }
         else{
             element.update();
