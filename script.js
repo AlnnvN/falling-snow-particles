@@ -85,7 +85,7 @@ function createParticle(){
     }
 
     function randomRadius(){
-        return  Math.floor(Math.random() * 300/Math.sqrt(Math.sqrt(window.devicePixelRatio*canvas.width*canvas.height)))
+        return  Math.floor(Math.random() * Math.sqrt(Math.sqrt(Math.sqrt(window.devicePixelRatio*window.devicePixelRatio*canvas.width*canvas.height))))
     }
 
     function randomAcceleration(){
