@@ -130,8 +130,9 @@ function setupCanvas(){
     const ratio = Math.ceil(window.devicePixelRatio);
     const canvas = document.querySelector('canvas');
 
-    canvas.width = width*ratio;
-    canvas.height = height*ratio;
+    console.log(`debugging with (${width*ratio*2}),(${height*ratio*2})`)
+    canvas.width = width*ratio*2;
+    canvas.height = height*ratio*2;
 
     canvas.style.width = width+'px';
     canvas.style.height = height+'px';
