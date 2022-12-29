@@ -59,8 +59,8 @@ function start(){
 function createParticle(){
    
     var acceleration = {
-        x: 5*Math.sqrt(Math.sqrt(window.devicePixelRatio*canvas.width*canvas.height))/1000,
-        y: 7.5*Math.sqrt(Math.sqrt(window.devicePixelRatio*canvas.width*canvas.height))/1000
+        x: Math.ceil(5*Math.sqrt(Math.sqrt(window.devicePixelRatio*canvas.width*canvas.height))/10)/100,
+        y: Math.ceil(7.5*Math.sqrt(Math.sqrt(window.devicePixelRatio*canvas.width*canvas.height))/10)/100
     }
 
     setInterval(()=>{
@@ -104,7 +104,8 @@ function update(){
 
     snowParticles.forEach((element, index) => {
         if(element.getPos().y > canvas.height+10 || element.getPos().x > canvas.width+10){
-            snowParticles.splice(index,1)
+            //snowParticles.splice(index,1)
+            delete snowParticles[index]
         }
         else{
             element.update();
