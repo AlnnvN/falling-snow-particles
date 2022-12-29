@@ -44,8 +44,7 @@ class Snow{
     }
 }
 
-var interval = 2000
-var intensity = 50
+var interval = 20000/Math.sqrt(canvas.width*canvas.height/4)
 
 
 var snowParticles = []
@@ -60,8 +59,8 @@ function start(){
 function createParticle(){
    
     var acceleration = {
-        x: 0.2*3.5,
-        y: 0.3*3.5
+        x: 1*(canvas.width*canvas.height/6600000),
+        y: 1.5*(canvas.width*canvas.height/6600000)
     }
 
     setInterval(()=>{
@@ -74,7 +73,7 @@ function createParticle(){
                 randomAcceleration()
             )
         );
-    },interval/intensity)
+    },interval)
 
     function randomXPos(){
         return Math.floor(Math.random() * (canvas.width+canvas.width*0.20)) - Math.floor(canvas.width*0.20)
@@ -125,7 +124,6 @@ function setupCanvas(){
     const ratio = Math.ceil(window.devicePixelRatio);
     const canvas = document.querySelector('canvas');
 
-    console.log(`debugging with (${width*ratio*2}),(${height*ratio*2})`)
     canvas.width = width*ratio*2;
     canvas.height = height*ratio*2;
 
